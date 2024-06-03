@@ -7,29 +7,28 @@ import 'react-toastify/dist/ReactToastify.css';
 const Textgen = () =>{
     const[saveNumber, setSaveNumber] = useState();
     const[paragrph, setParagraph] = useState([])
-    const[flag,setFlag] = useState(false)
+    
+   
 
    function handleParagraphs(){
     
     if(saveNumber >0 && saveNumber<=data.length){
         setParagraph(data.slice(0,saveNumber));
-        setFlag(true)
         toast.success(`Your ${saveNumber} Paragraphs are ready!!! `)
+    }
+    else if(saveNumber > data.length){
+        alert("Ayyo! You are demanding very much paragraph in one go, kindly take little little 😀")
+        setParagraph(data.slice(0,data.length))
         
     }
-    else {
-        setFlag(false)
-        toast.error("Ayyo! You are demanding very much paragraph in one go, kindly take little little 😀");
+    else if(saveNumber <= 0){
+        alert("Ayyo ! you know that you wrote negative input 😵")
+        setParagraph(data.slice(0,1))
+        
     }
    }
 
-   //flag state has been used so that we can keep track of wheather input provided by user is within limit or not
-   //if not then useEffect is called on modification of the state of the flag
-   useEffect(()=>{
-    if(saveNumber>data.length && flag === false){
-        setParagraph(data.slice(0,data.length))
-    }
-   },[flag])
+  
     
     return(
         <div className="Loremgen_main">
